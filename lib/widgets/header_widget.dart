@@ -13,7 +13,7 @@ class HeaderWidget extends StatelessWidget {
     return Center(
       child: Container(
         margin: const EdgeInsets.all(20),
-        child: Text(title,
+        child: SelectableText(title,
             style: TextStyle(
                 color: Color(int.parse(_userController.user.userNameColor!)),
                 fontSize: _controller.width * 0.035,

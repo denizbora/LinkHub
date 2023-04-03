@@ -28,7 +28,7 @@ class ProfileImageWidget extends StatelessWidget {
             color: const Color.fromRGBO(96, 105, 108, 1),
           ),
           child: Center(
-              child: (profileImg != "") ? Container() : Text(
+              child: (profileImg != "") ? Container() : SelectableText(
                 userName[0].toUpperCase(),
                 style: TextStyle(
                     color: Colors.white, fontSize: _controller.width * 0.08),
@@ -38,14 +38,14 @@ class ProfileImageWidget extends StatelessWidget {
             margin: const EdgeInsets.all(20),
             child: Column(
               children: [
-                Text(
+                SelectableText(
                   userName,
                   style: TextStyle(
                       color: Color(int.parse(_userController.user.userNameColor!)),
                       fontSize: _controller.width * 0.04,
                       fontWeight: FontWeight.w700),
                 ),
-                (biography!="") ? Text(
+                (biography!="") ? SelectableText(
                   biography,
                   style: TextStyle(
                       color: Color(int.parse(_userController.user.biographyColor!)),
