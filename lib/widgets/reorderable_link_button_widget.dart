@@ -3,12 +3,34 @@ import 'package:get/get.dart';
 import 'package:link_project/constants/constants.dart';
 
 import '../controllers/app_controller.dart';
+import '../helpers/api_helper.dart';
 
-class ReorderableLinkButtonWidget extends StatelessWidget {
+class ReorderableLinkButtonWidget extends StatefulWidget {
   ReorderableLinkButtonWidget({Key? key, required this.link, required this.title}) : super(key: key);
   final String link;
   final String title;
+
+  @override
+  State<ReorderableLinkButtonWidget> createState() => _ReorderableLinkButtonWidgetState();
+}
+
+class _ReorderableLinkButtonWidgetState extends State<ReorderableLinkButtonWidget> {
   final AppController _controller = Get.find<AppController>();
+
+  String favicon="";
+
+  @override
+  void initState() {
+    super.initState();
+    getFavicon();
+  }
+
+  Future<void> getFavicon() async {
+    favicon = await ApiHelper().getFavicon(Uri.parse(widget.link).host);
+    setState(() {
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +50,7 @@ class ReorderableLinkButtonWidget extends StatelessWidget {
               ),
               child: Image(width: 30,
                 image: NetworkImage(
-                    "http://${Uri.parse(link).host}/favicon.ico"),fit: BoxFit.cover,
+                    favicon),fit: BoxFit.cover,
               )),
           const SizedBox(width: 15,),
           SizedBox(
@@ -37,8 +59,8 @@ class ReorderableLinkButtonWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
-                Text(link,style: const TextStyle(fontSize: 12,color: Colors.black45,overflow: TextOverflow.ellipsis),maxLines: 1,softWrap: false,),
+                Text(widget.title,style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
+                Text(widget.link,style: const TextStyle(fontSize: 12,color: Colors.black45,overflow: TextOverflow.ellipsis),maxLines: 1,softWrap: false,),
               ],
             ),
           )
